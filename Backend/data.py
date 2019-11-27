@@ -12,36 +12,36 @@ class Data:
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
             jsonmovie = yt.extract_info(url, download=True)
         print(jsonmovie)
-        self.title = jsonmovie["title"]
-        self.thumbnail = jsonmovie["thumbnail"]
-        self.id = jsonmovie["id"]
-        self.webpage_url = jsonmovie["webpage_url"]
-        self.tags = jsonmovie["tags"]
-        self.uploader = jsonmovie["uploader"]
-        self.categories = jsonmovie["categories"]
-        self.age_limit = jsonmovie["age_limit"]
-        self.view_count = jsonmovie["view_count"]
-        self.dislike_count = jsonmovie["dislike_count"]
-        self.like_count = jsonmovie["like_count"]
-        self.average_rating = jsonmovie["average_rating"]
-        self.duration = jsonmovie["duration"]
-        self.channel_id = jsonmovie['channel_id']
+        self.vidTitle = jsonmovie["title"]
+        self.vidThumbnail = jsonmovie["thumbnail"]
+        self.vidID = jsonmovie["id"]
+        self.vidWebUrl = jsonmovie["webpage_url"]
+        self.vidTags = jsonmovie["tags"]
+        self.vidUploader = jsonmovie["uploader"]
+        self.vidCategories = jsonmovie["categories"]
+        self.vidAgeLimit = jsonmovie["age_limit"]
+        self.vidViewCount = jsonmovie["view_count"]
+        self.vidDislikeCount = jsonmovie["dislike_count"]
+        self.vidLikeCount = jsonmovie["like_count"]
+        self.vidAverageRating = jsonmovie["average_rating"]
+        self.vidDuration = jsonmovie["duration"]
+        self.chanID = jsonmovie['channel_id']
         r = requests.get(
             'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=' +
             self.channel_id + '&key=' + os.environ['APIKEY'])
         self.jsonmovie2 = r.json()
-        self.viewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
-        self.commentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"]
-        self.subscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
-        self.videoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
-        self.publishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]
-        self.data = {"tytul":self.title, "thumbnail": self.thumbnail, "id": self.id, "url_strony": self.webpage_url, "tagi": self.tags,
-                    "Uploadujacy": self.uploader, "Kategorie": self.categories,
-                    "ograniczenie_wiekowe": self.age_limit, "ilosc_wyswietlen": self.view_count, "ilosc_dislikeow": self.dislike_count,
-                     "ilosc_likeow": self.like_count,"srednia_ocena": self.average_rating,
-                     "dlugosc_filmu": self.duration, 'id_kanalu': self.channel_id,"ilosc_komentarzy_kanalu":self.commentCount,
-                     "ilosc_subskrybentow": self.subscriberCount, "ilosc_filmu":self.videoCount,"publikacja_kanalu":self.videoCount}
+        self.chanViewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
+        self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"]
+        self.chanSubscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
+        self.chanVideoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
+        self.chanPublishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]
+        self.data = {"tytul":self.vidTitle, "thumbnail": self.vidThumbnail, "id": self.vidID, "url_strony": self.vidWebUrl, "tagi": self.vieTags,
+                    "Uploadujacy": self.vidUploader, "Kategorie": self.vidCategories,
+                    "ograniczenie_wiekowe": self.vidAgeLimit, "ilosc_wyswietlen": self.vidViewCount, "ilosc_dislikeow": self.vidDislikeCount,
+                     "ilosc_likeow": self.vidLikeCount,"srednia_ocena": self.vidAverageRating,
+                     "dlugosc_filmu": self.vidDuration, 'id_kanalu': self.chanID, "ilosc_wys_film_kanal: ": self.chanViewCount,"ilosc_komentarzy_kanalu":self.commentCount,
+                     "ilosc_subskrybentow": self.subscriberCount, "ilosc_filmu":self.videoCount,"publikacja_kanalu":self.publishedAt}
 
-    def pobierz_dane(self):
+    def getContent(self):
         print(self.jsonmovie2)
         return (self.data)
