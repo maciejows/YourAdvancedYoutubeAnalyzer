@@ -48,15 +48,15 @@ def mozaika(tab):
     plt.savefig("hist.png", format='png')
 
 def histogram(data):
-    name = data.id + ".mp4"
+    name = data.vidID + ".mp4"
     vidcap = cv.VideoCapture(name)
     count = 0
     success = True
     fps = int(vidcap.get(cv.CAP_PROP_FPS))
-    f = int(fps*data.duration/11)
+    f = int(fps*data.vidDuration/11)
     i = 0
     print(f)
-    print(fps*data.duration)
+    print(fps*data.vidDuration)
     images = []
     while success:
         success, image = vidcap.read()

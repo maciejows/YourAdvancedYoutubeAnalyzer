@@ -11,7 +11,7 @@ def output():
     if request.method == "GET":
         if a.url != '':
             histogram(a.data)
-            name = a.data.id + ".mp4"
+            name = a.data.vidID + ".mp4"
             os.remove(name)
             return send_file("hist.png", mimetype='image/png')
         else:
@@ -23,7 +23,7 @@ def output():
 def json():
     if request.method == "GET":
         if a.url != '':
-            heh = a.data.pobierz_dane()
+            heh = a.data.getContent()
             return jsonify(heh)
         else:
             return jsonify("EMPTY URL")
