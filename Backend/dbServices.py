@@ -1,14 +1,18 @@
+import os
+
 import mysql.connector
 from mysql.connector import errorcode
+from data.py import data
+
 
 class ytDB:
     def __init__(self):
         try:
             self.rdsdb = mysql.connector.connect(
-                user="root",
-                passwd="lubiemaslo",
-                host="youtubeanalyzer.cqmx3x4uk8ob.us-east-1.rds.amazonaws.com",
-                database="yayaDB"
+                user=os.environ["user"],
+                passwd=os.environ["passwd"],
+                host=os.environ["host"],
+                database=os.environ["database"],
             )
             print("succesfully connected to the database: " + str(self.rdsdb))
         except mysql.connector.Error as err:
@@ -18,7 +22,8 @@ class ytDB:
                 print("Database does not exists")
             else:
                 print(err)
-        else: self.dbCursor = self.rdsdb.cursor()
+        else:
+            self.dbCursor = self.rdsdb.cursor()
 
     def closeConnection(self):
         self.rdsdb.close()
@@ -34,22 +39,30 @@ class ytDB:
         return query.fetchall()
 
     def getVideoData(self, videoID):
-      query = self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '"+ videoID +"'" )
-      #print(query)
-      return query
+        query = self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + videoID + "'")
+        # print(query)
+        return query
+
+    def getChannelData(self, channelID):
+        query = self.dbCursor.execute("SELECT * FROM channels WHERE videoId like '" + channelID + "'")
+
+    def getData(self, data):
+        self.getVideoData(data.vidID)
+        self.getChannel(data.chanID)
+
+    def addData(self, data):
+        if self.ifVideo(data.vidID):
+            self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + data.vidID + "'")
+        else:
+            sql = "INSERT INTO videos (name, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            values = (data.vidID, data.vidUploader, data.vidWebUrl)
+            self.dbCursor.execute(sql, values)
 
     def ifVideo(self, videoID):
-      query = self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + videoID + "'")
-      if query == "None": return False
-      return True
+        query = self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + videoID + "'")
+        if query == "None": return False
+        return True
 
-    def addDataToDb(self, data):
-      if ifVideo(video.videoID):
-        self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + videoID + "'")
-      else:
-        sql = "INSERT INTO videos (name, address) VALUES (%s, %s)"
-        values()
-        self.dbCursor.execute(sql, values)
 
 dupa = ytDB()
 print(dupa.getVideoData("yeeee"))
