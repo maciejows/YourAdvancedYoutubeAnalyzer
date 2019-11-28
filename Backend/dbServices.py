@@ -2,7 +2,7 @@ import os
 
 import mysql.connector
 from mysql.connector import errorcode
-from data.py import data
+from YourAdvancedYoutubeAnalyzer.Backend.data import Data
 
 
 class ytDB:

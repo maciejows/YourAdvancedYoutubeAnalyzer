@@ -8,9 +8,9 @@ ydl_opts = {
 }
 
 class Data:
-    def __init__(self,url):
+    def __init__(self,url,bool):
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
-            jsonmovie = yt.extract_info(url, download=True)
+            jsonmovie = yt.extract_info(url, download=bool)
         print(jsonmovie)
         self.vidTitle = jsonmovie["title"]
         self.vidThumbnail = jsonmovie["thumbnail"]
