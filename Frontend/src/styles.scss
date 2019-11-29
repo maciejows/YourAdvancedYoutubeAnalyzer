@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+// Whole Bootstrap library
+
+
+// Variable override
+/*
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+
+
+$warning:       #ff8507;    
+
+$success: #1ce019;
+
+$gray-300: #dee2e6 !default;
+$body-bg:       $gray-300;
+*/
+@import "~node_modules/bootstrap/scss/bootstrap";
+
+.container{
+    width: 100%;
+}
+// import only the Bootstrap modules you need.
+
+/* Must have imports if importing only needed modules
+@import "~node_modules/bootstrap/scss/functions";
+@import "~node_modules/bootstrap/scss/variables";
+@import "~node_modules/bootstrap/scss/mixins";
+*/
