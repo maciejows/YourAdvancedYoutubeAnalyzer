@@ -1,3 +1,29 @@
-<div class="container">
-    Data display here
+<div class="container mt-5">
+    <div *ngIf="!data" class="d-flex justify-content-center mt-5">
+        <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="data">
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item mr-1">
+                        <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item mr-1">
+                        <a class="nav-link " href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Data Display Title</h5>
+                <p class="card-text">Data content</p>
+            </div>
+        </div>
+    </div>
+    <button (click)="data = !data;"> Switch </button>
 </div>
