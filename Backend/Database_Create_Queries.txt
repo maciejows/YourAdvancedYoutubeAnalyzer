@@ -1,0 +1,26 @@
+CREATE TABLE creators (
+    creatorID VARCHAR(255) UNIQUE PRIMARY KEY,
+    creatorName TEXT, 
+    uploaderUrl TEXT, 
+    subscribers INT, 
+    views INT
+);
+CREATE TABLE videos (
+    videoID VARCHAR(255) UNIQUE PRIMARY KEY,
+    creatorID VARCHAR(255),
+    videoTitle TEXT,
+    videoUrl TEXT,
+    thumbnailUrl TEXT,
+    categories TEXT,
+    rating DECIMAL,
+    likes INT,
+    dislikes INT,
+    comments INT,
+    views INT,
+    frequentWords TEXT,
+    likeWordCounter INT,
+    commentWordCounter INT,
+    subscribeWordCounter INT,
+    demography TEXT,
+    FOREIGN KEY (creatorID) REFERENCES creators(creatorID)
+    );
