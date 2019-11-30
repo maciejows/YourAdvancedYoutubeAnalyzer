@@ -2,7 +2,7 @@ import os
 
 import mysql.connector
 from mysql.connector import errorcode
-from YourAdvancedYoutubeAnalyzer.Backend.data import Data
+from data import Data
 
 
 class ytDB:
@@ -38,17 +38,43 @@ class ytDB:
             query = self.dbCursor.execute("SELECT * FROM " + str(tableName))
         return query.fetchall()
 
-    def getVideoData(self, videoID):
-        query = self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + videoID + "'")
-        # print(query)
-        return query
+    def getVideoData(self, vidID):
+        self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + vidID + "'")
+        return self.dbCursor.fetchone()
 
     def getChannelData(self, channelID):
-        query = self.dbCursor.execute("SELECT * FROM channels WHERE videoId like '" + channelID + "'")
+        self.dbCursor.execute("SELECT * FROM channels WHERE channelID like '" + channelID + "'")
+        return self.dbCursor.fetchone()
 
-    def getData(self, data):
-        self.getVideoData(data.vidID)
-        self.getChannel(data.chanID)
+    def getData(self, vidID):
+        vidQuery = self.getVideoData(vidID)
+        chanQuery = self.getChannelData(vidQuery[1])
+        print(vidQuery + chanQuery)
+        query = Data()
+        query.vidID = vidQuery[0]
+        query.vidTitle = vidQuery[2]
+        query.vidWebUrl = vidQuery[3]
+        query.vidThumbnail = vidQuery[4]
+        query.vidCategories = vidQuery[5]
+        query.vidTags = vidQuery[6]
+        query.vidUploader = vidQuery[7]
+        query.vidCommentCount = vidQuery[8]
+        query.vidViewCount = vidQuery[9]
+        query.vidAgeLimit = vidQuery[10]
+        query.vidAverageRating = vidQuery[15]
+        query.vidLikeCount = vidQuery[16]
+        query.vidDislikeCount = vidQuery[17]
+        query.vidDuration = vidQuery[18]
+
+        query.chanID = vidQuery[1]
+        query.chanName = chanQuery[1]
+        query.chanUrl = chanQuery[2]
+        query.chanSubscriberCount = chanQuery[3]
+        query.chanViewCount = chanQuery[4]
+        query.chanPublishedAt = chanQuery[5]
+        query.chanVideoCount = chanQuery[6]
+        return query
+
 
     def addData(self, data):
         if self.ifVideo(data.vidID):
@@ -63,7 +89,8 @@ class ytDB:
         if query == "None": return False
         return True
 
-
 dupa = ytDB()
-print(dupa.getVideoData("yeeee"))
+dupa.getVideoData("TESTvidID")
+dupa.getData("TESTvidID")
+#dupa.getChannelData("TESTchanID")
 dupa.closeConnection()
