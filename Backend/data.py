@@ -9,29 +9,6 @@ ydl_opts = {
 
 
 class Data:
-    # TODO 0: create default constructor with no parameters
-    '''def __init__(self):
-        self.vidTitle = ""
-        self.vidThumbnail = ""
-        self.vidID = ""
-        self.vidWebUrl = ""
-        self.vidCommentCount = 0
-        self.vidTags = ""
-        self.vidUploader = ""
-        self.vidCategories = ""
-        self.vidAgeLimit = 0
-        self.vidViewCount = 0
-        self.vidDislikeCount = 0
-        self.vidLikeCount = 0
-        self.vidAverageRating = 0.0
-        self.vidDuration = 0
-        self.chanID = ""
-        self.chanName = "TEMP NAME"
-        self.chanWebUrl = "TEMP NAME"
-        self.chanViewCount = 0
-        self.chanSubscriberCount = 0
-        self.chanVideoCount = 0
-        self.chanPublishedAt = ""'''
 
     def __init__(self, url, bool):
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
@@ -66,16 +43,16 @@ class Data:
         self.chanSubscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
         self.chanVideoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
         self.chanPublishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]
-        self.data = {"tytul": self.vidTitle, "thumbnail": self.vidThumbnail, "id": self.vidID,
-                     "url_strony": self.vidWebUrl, "tagi": self.vidTags,
-                     "Uploadujacy": self.vidUploader, "Kategorie": self.vidCategories,
-                     "ograniczenie_wiekowe": self.vidAgeLimit, "ilosc_wyswietlen": self.vidViewCount,
-                     "ilosc_dislikeow": self.vidDislikeCount,
-                     "ilosc_likeow": self.vidLikeCount, "srednia_ocena": self.vidAverageRating,
-                     "dlugosc_filmu": self.vidDuration, 'id_kanalu': self.chanID,
-                     "ilosc_wys_film_kanal: ": self.chanViewCount,
-                     "ilosc_subskrybentow": self.chanSubscriberCount, "ilosc_filmu": self.chanVideoCount,
-                     "publikacja_kanalu": self.chanPublishedAt}
+        self.data = {"videoTitle": self.vidTitle, "thumbnailURL": self.vidThumbnail, "videoId": self.vidID,
+                     "videoUrl": self.vidWebUrl, "tags": self.vidTags,
+                     "videoUploader": self.vidUploader, "videoCategories": self.vidCategories,
+                     "ageLimit": self.vidAgeLimit, "videoViewCount": self.vidViewCount,
+                     "videoDislikeCount": self.vidDislikeCount, "commentsCount": self.vidCommentCount,
+                     "videoLikeCount": self.vidLikeCount, "videoAverageRating": self.vidAverageRating,
+                     "videoDuration": self.vidDuration, "channelId": self.chanID, "channelName": self.chanName,
+                     "channelUrl":self.chanWebUrl, "channelTotalVideoViews": self.chanViewCount,
+                     "subscribersNumber": self.chanSubscriberCount, "videosNumber": self.chanVideoCount,
+                     "channelPublishedAt": self.chanPublishedAt}
 
-    def getContent(self):
-        return (self.data)
+        def getContent(self):
+            return (self.data)

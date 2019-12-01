@@ -50,31 +50,18 @@ class ytDB:
         vidQuery = self.getVideoData(vidID)
         chanQuery = self.getChannelData(vidQuery[1])
         print(vidQuery + chanQuery)
-        query = Data()
-        query.vidID = vidQuery[0]
-        query.vidTitle = vidQuery[2]
-        query.vidWebUrl = vidQuery[3]
-        query.vidThumbnail = vidQuery[4]
-        query.vidCategories = vidQuery[5]
-        query.vidTags = vidQuery[6]
-        query.vidUploader = vidQuery[7]
-        query.vidCommentCount = vidQuery[8]
-        query.vidViewCount = vidQuery[9]
-        query.vidAgeLimit = vidQuery[10]
-        query.vidAverageRating = vidQuery[15]
-        query.vidLikeCount = vidQuery[16]
-        query.vidDislikeCount = vidQuery[17]
-        query.vidDuration = vidQuery[18]
 
-        query.chanID = vidQuery[1]
-        query.chanName = chanQuery[1]
-        query.chanUrl = chanQuery[2]
-        query.chanSubscriberCount = chanQuery[3]
-        query.chanViewCount = chanQuery[4]
-        query.chanPublishedAt = chanQuery[5]
-        query.chanVideoCount = chanQuery[6]
+        query = {"videoTitle": vidQuery[2], "thumbnailURL": vidQuery[4], "videoId": vidQuery[0],
+                 "videoUrl": vidQuery[3], "tags": vidQuery[6],
+                 "videoUploader": vidQuery[7], "videoCategories": vidQuery[5],
+                 "ageLimit": vidQuery[10], "videoViewCount": vidQuery[9],
+                 "videoDislikeCount": vidQuery[17], "commentsCount": vidQuery[8],
+                 "videoLikeCount": vidQuery[16], "videoAverageRating": vidQuery[15],
+                 "videoDuration": vidQuery[18], "channelId": vidQuery[1], "channelName": chanQuery[1],
+                 "channelUrl": chanQuery[2], "channelTotalVideoViews": chanQuery[4],
+                 "subscribersNumber": chanQuery[3], "videosNumber": chanQuery[6],
+                 "channelPublishedAt": chanQuery[5]}
         return query
-
 
     def addData(self, data):
         if self.ifVideo(data.vidID):
@@ -89,8 +76,9 @@ class ytDB:
         if query == "None": return False
         return True
 
+
 dupa = ytDB()
 dupa.getVideoData("TESTvidID")
 dupa.getData("TESTvidID")
-#dupa.getChannelData("TESTchanID")
+# dupa.getChannelData("TESTchanID")
 dupa.closeConnection()
