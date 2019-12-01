@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
+import { Data } from '../data';
 
 @Component({
   selector: 'app-data-display',
   templateUrl: './data-display.component.html',
   styleUrls: ['./data-display.component.scss']
 })
-export class DataDisplayComponent implements OnInit {
+export class DataDisplayComponent{
 
-  data: boolean = true;
-
+  @Input() data: Data;
+  @Input() searched: boolean;
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

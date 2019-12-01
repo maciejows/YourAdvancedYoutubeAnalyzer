@@ -1,11 +1,8 @@
 <app-top-nav-bar></app-top-nav-bar>
-<app-search-bar></app-search-bar>
-<app-data-display></app-data-display>
+<app-search-bar (data)="getData($event)" (searched)="isSearching($event)"></app-search-bar>
+<app-data-display [data]="data" [searched]="searched"></app-data-display>
 <app-about></app-about>
-<app-bottom-nav-bar></app-bottom-nav-bar>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<app-bottom-nav-bar></app-bottom-nav-bar>
 

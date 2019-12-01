@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BottomNavBarComponent implements OnInit {
 
+  options = ["Home", "About", "FAQ"];
+
   constructor() { }
 
   ngOnInit() {

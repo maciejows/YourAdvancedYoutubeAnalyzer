@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { Data } from './data';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'YAYA';
+  data: Data;
+  searched: boolean;
+  
+  getData(event: any){
+    this.data = event;
+    console.log(`Root here, got data: ${event}`)
+  }
+
+  isSearching(event: boolean){
+    this.searched = event;
+  }
+
 }
