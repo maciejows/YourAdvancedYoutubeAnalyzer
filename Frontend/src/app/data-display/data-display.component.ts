@@ -8,7 +8,7 @@ import { Data } from '../data';
 })
 export class DataDisplayComponent{
 
-  @Input() data: Data;
+  @Input() data: any;
   @Input() searched: boolean;
   constructor() { }
 

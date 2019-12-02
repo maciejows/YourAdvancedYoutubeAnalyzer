@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output} from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Data } from '../data';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,22 +10,22 @@ import { Data } from '../data';
 })
 export class SearchBarComponent{
 
-  @Output() data = new EventEmitter<any>();
+  @Output() data = new EventEmitter();
   @Output() searched = new EventEmitter<boolean>();
- 
 
   constructor(private dataService: DataService) { }
 
 
   //TODO Need to unpack JSON
   // TODO http://localhost:4200/?# ???????
-  getData(url): void{
+  getData(url): void {
     this.searched.emit(true);
     this.data.emit(null);
+    
     this.dataService.getData(url)
-    .subscribe( data => {
-      console.log(data);
-      this.data.emit(data.id as Data);
+    .subscribe( (data) => {
+      console.log(data)
+      this.data.emit({channelId: data.channelId});
     });
   }
 

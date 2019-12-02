@@ -7,7 +7,7 @@ import { Data } from './data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data: Data;
+  data: any;
   searched: boolean;
   
   getData(event: any){
