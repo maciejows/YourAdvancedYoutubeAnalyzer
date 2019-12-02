@@ -10,6 +10,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
+  // TODO http://localhost:4200/?# ???????
   getData(videoUrl: string): Observable<Data> {
     const httpOptions = {
       headers: new HttpHeaders({

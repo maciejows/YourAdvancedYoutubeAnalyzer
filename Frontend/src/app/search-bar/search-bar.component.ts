@@ -10,22 +10,18 @@ import { map } from 'rxjs/operators';
 })
 export class SearchBarComponent{
 
-  @Output() data = new EventEmitter();
+  @Output() data = new EventEmitter<Data>();
   @Output() searched = new EventEmitter<boolean>();
 
   constructor(private dataService: DataService) { }
 
-
-  //TODO Need to unpack JSON
-  // TODO http://localhost:4200/?# ???????
   getData(url): void {
     this.searched.emit(true);
     this.data.emit(null);
     
     this.dataService.getData(url)
     .subscribe( (data) => {
-      console.log(data)
-      this.data.emit({channelId: data.channelId});
+      this.data.emit(data);
     });
   }
 

@@ -7,12 +7,11 @@ import { Data } from './data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data: any;
+  data: Data;
   searched: boolean;
   
-  getData(event: any){
+  getData(event: Data){
     this.data = event;
-    console.log(`Root here, got data: ${event}`)
   }
 
   isSearching(event: boolean){
