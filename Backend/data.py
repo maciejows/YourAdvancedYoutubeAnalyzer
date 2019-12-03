@@ -54,5 +54,5 @@ class Data:
                      "subscribersNumber": self.chanSubscriberCount, "videosNumber": self.chanVideoCount,
                      "channelPublishedAt": self.chanPublishedAt}
 
-        def getContent(self):
-            return (self.data)
+    def getContent(self):
+        return (self.data)
