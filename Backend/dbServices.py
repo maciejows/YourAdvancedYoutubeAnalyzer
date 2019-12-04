@@ -1,7 +1,6 @@
 import os
 import mysql.connector
 from mysql.connector import errorcode
-from Backend.data import Data
 
 
 class ytDB:
@@ -119,11 +118,11 @@ class ytDB:
         return True
 
 
-dupa = ytDB()
-print(dupa.getVideoData("TESTvidID"))
-print(dupa.getChannelData("TESTchanID"))
-print(dupa.getData("TESTvidID"))
-data = Data("q6a0yvRV4pQ", False)
-data.getContent()
-dupa.addData(data)
-dupa.closeConnection()
+# dupa = ytDB()
+# print(dupa.getVideoData("TESTvidID"))
+# print(dupa.getChannelData("TESTchanID"))
+# print(dupa.getData("TESTvidID"))
+# data = Data("q6a0yvRV4pQ", False)
+# data.getContent()
+# dupa.addData(data)
+# dupa.closeConnection()
