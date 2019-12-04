@@ -93,7 +93,7 @@ class ytDB:
                   "tags, uploader, comments, views, ageLimit, rating, likes, dislikes, duration) " \
                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             values = (dbData.vidID, dbData.chanID, dbData.vidTitle, dbData.vidWebUrl, dbData.vidThumbnail,
-                      str(dbData.vidCategories), str(dbData.vidTags), dbData.vidUploader, dbData.vidCommentCount,
+                      str(dbData.vidCategories)[1:][:-1], str(dbData.vidTags)[1:][:-1], dbData.vidUploader, dbData.vidCommentCount,
                       dbData.vidViewCount, dbData.vidAgeLimit, dbData.vidAverageRating, dbData.vidLikeCount,
                       dbData.vidDislikeCount, dbData.vidDuration)
             self.dbCursor.execute(sql, values)
