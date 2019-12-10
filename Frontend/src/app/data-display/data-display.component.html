@@ -9,20 +9,18 @@
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item mr-1">
-                            <a class="nav-link active" href="#">Active</a>
-                        </li>
-                        <li class="nav-item mr-1">
-                            <a class="nav-link " href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <li *ngFor="let option of options"
+                            (click)="selectOption(option)"
+                            [class.active]="option === selectedOption"
+                            class="nav-item mr-1" >
+                            <button class="btn btn btn-outline-danger">{{option}}</button>
                         </li>
                     </ul>
                 </div>
-                <div class="card-body">
+                <!-- TODO: Make it NgIf, switch displaying data-->
+                <div class="card-body" *ngIf="selectedOption === 'Video'">
                     <h5 class="card-title">Data Display Title</h5>
-                    <p class="card-text">Data content {{data.channelId}}</p>
+                    <p class="card-text">Data content {{data.videosNumber}}</p>
                 </div>
             </div>
         </div>

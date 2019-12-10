@@ -10,6 +10,13 @@ export class DataDisplayComponent{
 
   @Input() data: Data;
   @Input() searched: boolean;
+  
+  options: string[] = ["Video", "Channel", "Additional"];
+  selectedOption = "Video";
+
   constructor() { }
 
+  selectOption(option: string): void{
+    this.selectedOption = option;
+  }
 }
