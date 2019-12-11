@@ -13,7 +13,7 @@ def output():
     if request.method == "GET":
         #TODO Check if hist is present in database
         url = request.args.get('url',type=str)
-        data = Data(url,True)
+        data = Data('https://www.youtube.com/watch?v=' + url,True)
         if url != '':
             histogram(data)
             name = data.vidID + ".mp4"
@@ -29,7 +29,7 @@ def json():
     if request.method == "GET":
         yt = ytDB()
         url = request.args.get('url', type=str)
-        data = Data(url,False)
+        data = Data('https://www.youtube.com/watch?v=' + url,False)
         if url != '':
             yt.addData(data)
             heh = yt.getData(data.vidID)
