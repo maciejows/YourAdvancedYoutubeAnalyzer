@@ -1,10 +1,12 @@
 import os
 from flask import Flask, send_file, jsonify, request
+from flask_cors import CORS
 from Backend.mozaika import histogram
 from Backend.data import Data
 from Backend.dbServices import ytDB
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/hist',methods=["GET"])
 def output():
