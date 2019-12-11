@@ -19,7 +19,7 @@ class Data:
         self.vidID = jsonmovie["id"]
         self.vidWebUrl = jsonmovie["webpage_url"]
         # TODO 1: add comment count jsonmovie
-        self.vidCommentCount = jsonmovie[""]
+        self.vidCommentCount = "56465678"
         self.vidTags = jsonmovie["tags"]
         self.vidUploader = jsonmovie["uploader"]
         self.vidCategories = jsonmovie["categories"]
@@ -34,9 +34,8 @@ class Data:
             'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=' +
             self.chanID + '&key=' + os.environ['APIKEY'])
         self.jsonmovie2 = r.json()
-        # TODO 2: add channel name and channel URL
-        self.chanName = "TEMP NAME"
-        self.chanWebUrl = "TEMP NAME"
+        self.chanName = self.jsonmovie2["items"][0]["snippet"]["title"]
+        self.chanWebUrl = "https://www.youtube.com/channel/" + self.chanID
         self.chanViewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
         # !!Commented chanCommentCount!!
         # self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"] "ilosc_komentarzy_kanalu":self.chanCommentCount,
@@ -47,7 +46,7 @@ class Data:
                      "videoUrl": self.vidWebUrl, "tags": self.vidTags,
                      "videoUploader": self.vidUploader, "videoCategories": self.vidCategories,
                      "ageLimit": self.vidAgeLimit, "videoViewCount": self.vidViewCount,
-                     "videoDislikeCount": self.vidDislikeCount, "commentsCount": self.vidCommentCount,
+                     "videoDislikeCount": self.vidDislikeCount, ''''"commentsCount": self.vidCommentCount,'''
                      "videoLikeCount": self.vidLikeCount, "videoAverageRating": self.vidAverageRating,
                      "videoDuration": self.vidDuration, "channelId": self.chanID, "channelName": self.chanName,
                      "channelUrl":self.chanWebUrl, "channelTotalVideoViews": self.chanViewCount,
