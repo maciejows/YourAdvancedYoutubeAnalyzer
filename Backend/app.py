@@ -9,6 +9,7 @@ app = Flask(__name__)
 @app.route('/hist',methods=["GET"])
 def output():
     if request.method == "GET":
+        #TODO Check if hist is present in database
         url = request.args.get('url',type=str)
         data = Data(url,True)
         if url != '':
