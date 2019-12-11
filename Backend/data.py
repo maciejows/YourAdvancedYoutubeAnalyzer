@@ -3,12 +3,14 @@ import requests
 import youtube_dl
 
 ydl_opts = {
-    'format':'160',
+    'format': '160',
     'outtmpl': '/%(id)s.%(ext)s'
 }
 
+
 class Data:
-    def __init__(self,url,bool):
+
+    def __init__(self, url, bool):
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
             jsonmovie = yt.extract_info(url, download=bool)
         print(jsonmovie)
@@ -16,6 +18,8 @@ class Data:
         self.vidThumbnail = jsonmovie["thumbnail"]
         self.vidID = jsonmovie["id"]
         self.vidWebUrl = jsonmovie["webpage_url"]
+        # TODO 1: add comment count jsonmovie
+        self.vidCommentCount = "56465678"
         self.vidTags = jsonmovie["tags"]
         self.vidUploader = jsonmovie["uploader"]
         self.vidCategories = jsonmovie["categories"]
@@ -30,17 +34,24 @@ class Data:
             'https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=' +
             self.chanID + '&key=' + os.environ['APIKEY'])
         self.jsonmovie2 = r.json()
+        self.chanName = self.jsonmovie2["items"][0]["snippet"]["title"]
+        self.chanWebUrl = "https://www.youtube.com/channel/" + self.chanID
         self.chanViewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
-        self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"]
+        # !!Commented chanCommentCount!!
+        # self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"] "ilosc_komentarzy_kanalu":self.chanCommentCount,
         self.chanSubscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
         self.chanVideoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
         self.chanPublishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]
-        self.data = {"tytul":self.vidTitle, "thumbnail": self.vidThumbnail, "id": self.vidID, "url_strony": self.vidWebUrl, "tagi": self.vidTags,
-                    "Uploadujacy": self.vidUploader, "Kategorie": self.vidCategories,
-                    "ograniczenie_wiekowe": self.vidAgeLimit, "ilosc_wyswietlen": self.vidViewCount, "ilosc_dislikeow": self.vidDislikeCount,
-                     "ilosc_likeow": self.vidLikeCount,"srednia_ocena": self.vidAverageRating,
-                     "dlugosc_filmu": self.vidDuration, 'id_kanalu': self.chanID, "ilosc_wys_film_kanal: ": self.chanViewCount,"ilosc_komentarzy_kanalu":self.chanCommentCount,
-                     "ilosc_subskrybentow": self.chanSubscriberCount, "ilosc_filmu":self.chanVideoCount,"publikacja_kanalu":self.chanPublishedAt}
+        self.data = {"videoTitle": self.vidTitle, "thumbnailURL": self.vidThumbnail, "videoId": self.vidID,
+                     "videoUrl": self.vidWebUrl, "tags": self.vidTags,
+                     "videoUploader": self.vidUploader, "videoCategories": self.vidCategories,
+                     "ageLimit": self.vidAgeLimit, "videoViewCount": self.vidViewCount,
+                     "videoDislikeCount": self.vidDislikeCount, ''''"commentsCount": self.vidCommentCount,'''
+                     "videoLikeCount": self.vidLikeCount, "videoAverageRating": self.vidAverageRating,
+                     "videoDuration": self.vidDuration, "channelId": self.chanID, "channelName": self.chanName,
+                     "channelUrl":self.chanWebUrl, "channelTotalVideoViews": self.chanViewCount,
+                     "subscribersNumber": self.chanSubscriberCount, "videosNumber": self.chanVideoCount,
+                     "channelPublishedAt": self.chanPublishedAt}
 
     def getContent(self):
         return (self.data)
