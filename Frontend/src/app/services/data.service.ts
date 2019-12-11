@@ -12,13 +12,13 @@ export class DataService {
 
   // TODO http://localhost:4200/?# ???????
   getData(videoUrl: string): Observable<Data> {
+    const videoId = videoUrl.split("watch?v=");
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
       }),
-      params: {url: videoUrl}
+      params: {url: videoId[1]}
     };
-
     return this.http.get<Data>('http://127.0.0.1:5034/vid', httpOptions);
   }
 
