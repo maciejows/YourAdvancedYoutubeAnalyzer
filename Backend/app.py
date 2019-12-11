@@ -1,9 +1,12 @@
 import os
+import time
+
 from flask import Flask, send_file, jsonify, request
 from flask_cors import CORS
 from Backend.mozaika import histogram
 from Backend.data import Data
 from Backend.dbServices import ytDB
+from Backend.comments import Com
 
 app = Flask(__name__)
 CORS(app)
@@ -40,6 +43,16 @@ def json():
     else:
         return jsonify("ERROR ONLY GET ACCEPTABLE")
 
+@app.route('/com',methods=["GET"])
+def jsonc():
+    if request.method == "GET":
+        url = request.args.get('url', type=str)
+        start = time.time()
+        com = Com(url)
+        com.down()
+        end = time.time()
+        print(end - start)
+        return jsonify(len(com.komentarze))
 
 if __name__ == '__main__':
     app.run("127.0.0.1","5034")
