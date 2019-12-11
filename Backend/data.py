@@ -1,6 +1,7 @@
 import os
 import requests
 import youtube_dl
+from youtube_api import  YouTubeDataAPI
 
 ydl_opts = {
     'format': '160',
@@ -11,8 +12,10 @@ ydl_opts = {
 class Data:
 
     def __init__(self, url, bool):
+        print(url)
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
             jsonmovie = yt.extract_info(url, download=bool)
+        yt = YouTubeDataAPI(os.environ['APIKEY'])
         print(jsonmovie)
         self.vidTitle = jsonmovie["title"]
         self.vidThumbnail = jsonmovie["thumbnail"]
@@ -39,6 +42,12 @@ class Data:
         self.chanViewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
         # !!Commented chanCommentCount!!
         # self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"] "ilosc_komentarzy_kanalu":self.chanCommentCount,
+        # TODO: Class comments
+        # start = time.time()
+        # self.komenty = yt.get_video_comments(self.vidID)
+        # end = time.time()
+        # print(end - start)
+        # print(len(self.komenty))
         self.chanSubscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
         self.chanVideoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
         self.chanPublishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]

@@ -116,13 +116,6 @@ class ytDB:
             print("No such channel in the database.")
             return False
         return True
+    #TODO Check if hist is present in database
+    # def GetHist(self):
 
-
-# dupa = ytDB()
-# print(dupa.getVideoData("TESTvidID"))
-# print(dupa.getChannelData("TESTchanID"))
-# print(dupa.getData("TESTvidID"))
-# data = Data("q6a0yvRV4pQ", False)
-# data.getContent()
-# dupa.addData(data)
-# dupa.closeConnection()
