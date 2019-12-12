@@ -79,7 +79,7 @@ class ytDB:
             self.rdsdb.commit()
         # Checking if video is in database. If it is, updating data
         if self.ifVideo(dbData.vidID):
-            sql = "UPDATE `videos` t SET t.`comments` = %s, t.`views`= %s,t.`rating` = %s, t.`like` = %s, " \
+            sql = "UPDATE `videos` t SET t.`comments` = %s, t.`views`= %s,t.`rating` = %s, t.`likes` = %s, " \
                   "t.`dislikes` = %s WHERE t.`videoID` like '" + dbData.vidID + "'"
             val = (
                 dbData.vidCommentCount, dbData.vidViewCount, dbData.vidAverageRating, dbData.vidLikeCount,
