@@ -12,6 +12,7 @@ export class AppComponent {
   
   getData(event: Data){
     this.data = event;
+    console.log("Got data in app.component");
   }
 
   isSearching(event: boolean){

@@ -17,10 +17,12 @@
                         </li>
                     </ul>
                 </div>
-                <!-- TODO: Make it NgIf, switch displaying data-->
-                <div class="card-body" *ngIf="selectedOption === 'Video'">
-                    <h5 class="card-title">Data Display Title</h5>
-                    <p class="card-text">Data content {{data.videosNumber}}</p>
+                <!-- TODO: Add data-->
+                <div class="card-body">
+                    <h5 class="card-title">{{selectedOption}} informations</h5>
+                    <p *ngIf="selectedOption === 'Video'" class="card-text"> Data content {{data.videoId}}</p>
+                    <p *ngIf="selectedOption === 'Channel'" class="card-text"> Data content {{data.channelId}}</p>
+                    <p *ngIf="selectedOption === 'Additional'" class="card-text"> Data content additional</p>
                 </div>
             </div>
         </div>

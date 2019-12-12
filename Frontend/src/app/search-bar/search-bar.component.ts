@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 export class SearchBarComponent{
 
   @Output() data = new EventEmitter<Data>();
+  @Output() histogram = new EventEmitter();
   @Output() searched = new EventEmitter<boolean>();
 
   constructor(private dataService: DataService) { }
@@ -21,6 +22,7 @@ export class SearchBarComponent{
     
     this.dataService.getData(url)
     .subscribe( (data) => {
+      console.log("Emiting data in search.component");
       this.data.emit(data);
     });
   }

@@ -10,6 +10,9 @@ import { BottomNavBarComponent } from './bottom-nav-bar/bottom-nav-bar.component
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { DataDisplayComponent } from './data-display/data-display.component';
 import { AboutComponent } from './about/about.component';
+import { TopOneComponent } from './top-one/top-one.component';
+import { TopFiveComponent } from './top-five/top-five.component';
+import { VideoDisplayComponent } from './video-display/video-display.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { AboutComponent } from './about/about.component';
     SearchBarComponent,
     DataDisplayComponent,
     AboutComponent,
+    TopOneComponent,
+    TopFiveComponent,
+    VideoDisplayComponent,
   ],
   imports: [
     BrowserModule,
