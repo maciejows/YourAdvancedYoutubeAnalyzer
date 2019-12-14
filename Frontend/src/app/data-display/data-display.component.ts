@@ -1,4 +1,5 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { KeyValuePipe } from '@angular/common';
 import { Data } from '../data';
 
 @Component({
@@ -10,7 +11,7 @@ export class DataDisplayComponent {
 
   @Input() data: Data;
   @Input() searched: boolean;
-  
+
   options: string[] = ["Video", "Channel", "Additional"];
   selectedOption = "Video";
 
