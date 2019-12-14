@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-video-display',
@@ -9,17 +10,17 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class VideoDisplayComponent implements OnChanges{
   
   @Input() videoUrl: string;
-  displayUrl: string;
+  sanitizedUrl: SafeResourceUrl;
   constructor(private domSanitizer: DomSanitizer) {}
 
   ngOnChanges(){
-    console.log(this.videoUrl);
-    this.displayUrl = `https://www.youtube.com/embed/${this.videoUrl.split('watch?v=')[1]}?controls=1`;
-    console.log(this.displayUrl);
+    this.sanitizeUrl();
   }
 
   sanitizeUrl(){
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(this.displayUrl);
+    this.sanitizedUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      `https://www.youtube.com/embed/${this.videoUrl.split('watch?v=')[1]}?controls=1`
+    );
   }
 
 }
