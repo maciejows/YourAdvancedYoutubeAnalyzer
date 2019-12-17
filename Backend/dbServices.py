@@ -145,7 +145,7 @@ class ytDB:
     # def GetHist(self):
 
 
-gitara = ytDB()
-gitara.ifHist("4AIUlrTmlfI")
-gitara.addHist("4AIUlrTmlfI","histogram.urlarnbabawifbawoieub")
-gitara.getHist("4AIUlrTmlfI")
+#gitara = ytDB()
+#gitara.ifHist("4AIUlrTmlfI")
+#gitara.addHist("4AIUlrTmlfI","histogram.urlarnbabawifbawoieub")
+#gitara.getHist("4AIUlrTmlfI")
