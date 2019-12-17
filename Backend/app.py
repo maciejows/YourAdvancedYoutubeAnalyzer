@@ -18,10 +18,10 @@ def output():
         url = request.args.get('url',type=str)
         data = Data('https://www.youtube.com/watch?v=' + url,True)
         if url != '':
-            histogram(data)
-            name = data.vidID + ".mp4"
-            os.remove(name)
-            return send_file("hist.png", mimetype='image/png')
+            link = histogram(data)
+            os.remove(data.vidID + ".mp4")
+            os.remove(data.vidID + ".png")
+            return jsonify(link)
         else:
             return jsonify("EMPTY URL")
     else:

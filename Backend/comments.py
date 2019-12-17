@@ -1,7 +1,6 @@
-
+import os
 import threading
 import requests
-from gevent import os
 
 
 class Com:

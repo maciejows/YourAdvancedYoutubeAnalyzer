@@ -1,9 +1,13 @@
+import base64
+import os
+
 import numpy
+import requests
 from PIL import Image
 import cv2 as cv
 from matplotlib import pyplot as plt
 
-def mozaika(tab):
+def mozaika(tab,nazwa):
     width = 1536
     height = 256
     mosaic = Image.new('RGB', (width, height))
@@ -45,7 +49,16 @@ def mozaika(tab):
         histr = cv.calcHist([ret], [i], None, [256], [0, 256])
         plt.plot(histr, color=col)
         plt.xlim([0, 256])
-    plt.savefig("hist.png", format='png')
+    plt.savefig(nazwa + ".png", format='png')
+    f = open(nazwa + ".png", "rb")
+    image_data = f.read()
+    b64_image = base64.standard_b64encode(image_data)
+    headers = {'Authorization': 'Client-ID ' + os.environ['IMGUR']}
+    data = {'image': b64_image, 'title': nazwa}
+    r = requests.post("https://api.imgur.com/3/upload", data=data,headers=headers)
+    print(r.json()['data']['link'])
+    link = r.json()['data']['link']
+    return link
 
 def histogram(data):
     name = data.vidID + ".mp4"
@@ -55,8 +68,6 @@ def histogram(data):
     fps = int(vidcap.get(cv.CAP_PROP_FPS))
     f = int(fps*data.vidDuration/11)
     i = 0
-    print(f)
-    print(fps*data.vidDuration)
     images = []
     while success:
         success, image = vidcap.read()
@@ -65,7 +76,6 @@ def histogram(data):
             images.append(cv.cvtColor(image, cv.COLOR_BGR2RGB))
             i += f
         count += 1
-    print(images)
-    mozaika(images)
+    return mozaika(images,data.vidID)
 
 
