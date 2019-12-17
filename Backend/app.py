@@ -14,16 +14,22 @@ CORS(app)
 @app.route('/hist',methods=["GET"])
 def output():
     if request.method == "GET":
-        #TODO Check if hist is present in database
-        url = request.args.get('url',type=str)
-        data = Data('https://www.youtube.com/watch?v=' + url,True)
-        if url != '':
-            link = histogram(data)
-            os.remove(data.vidID + ".mp4")
-            os.remove(data.vidID + ".png")
-            return jsonify(link)
+        yt = ytDB()
+        url = request.args.get('url', type=str)
+        t = yt.ifHist(url)
+        if not t:
+            data = Data('https://www.youtube.com/watch?v=' + url,True)
+            if url != '':
+                link = histogram(data)
+                os.remove(data.vidID + ".mp4")
+                os.remove(data.vidID + ".png")
+                yt.addHist(url,link)
+                return jsonify(link)
+            else:
+                return jsonify("EMPTY URL")
         else:
-            return jsonify("EMPTY URL")
+            link = yt.getHist(url)
+            return jsonify(link)
     else:
         return jsonify("ERROR ONLY GET ACCEPTABLE")
 
