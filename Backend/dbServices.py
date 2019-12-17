@@ -126,6 +126,7 @@ class ytDB:
     def ifHist(self, videoID):
         self.dbCursor.execute("SELECT histogram FROM videos WHERE videoId like '" + videoID + "'")
         query = self.dbCursor.fetchone()
+        print(query)
         print("ifHist: " + str(query[0]))
         if str(query[0]) == "None" or str(query[0]) == "NULL":
             print("No such histogram in the database.")
@@ -141,11 +142,3 @@ class ytDB:
             print("No such channel in the database.")
             return False
         return True
-    # TODO Check if hist is present in database
-    # def GetHist(self):
-
-
-#gitara = ytDB()
-#gitara.ifHist("4AIUlrTmlfI")
-#gitara.addHist("4AIUlrTmlfI","histogram.urlarnbabawifbawoieub")
-#gitara.getHist("4AIUlrTmlfI")

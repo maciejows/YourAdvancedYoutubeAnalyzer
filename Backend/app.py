@@ -3,10 +3,10 @@ import time
 
 from flask import Flask, send_file, jsonify, request
 from flask_cors import CORS
-from Backend.mozaika import histogram
-from Backend.data import Data
-from Backend.dbServices import ytDB
-from Backend.comments import Com
+from YourAdvancedYoutubeAnalyzer.Backend.mozaika import histogram
+from YourAdvancedYoutubeAnalyzer.Backend.data import Data
+from YourAdvancedYoutubeAnalyzer.Backend.dbServices import ytDB
+from YourAdvancedYoutubeAnalyzer.Backend.comments import Com
 
 app = Flask(__name__)
 CORS(app)
@@ -16,20 +16,30 @@ def output():
     if request.method == "GET":
         yt = ytDB()
         url = request.args.get('url', type=str)
-        t = yt.ifHist(url)
-        if not t:
-            data = Data('https://www.youtube.com/watch?v=' + url,True)
-            if url != '':
-                link = histogram(data)
-                os.remove(data.vidID + ".mp4")
-                os.remove(data.vidID + ".png")
-                yt.addHist(url,link)
-                return jsonify(link)
-            else:
-                return jsonify("EMPTY URL")
-        else:
-            link = yt.getHist(url)
+        v = yt.ifVideo(url)
+        if v == False:
+            data = Data('https://www.youtube.com/watch?v=' + url, True)
+            yt.addData(data)
+            link = histogram(data)
+            os.remove(data.vidID + ".mp4")
+            os.remove(data.vidID + ".png")
+            yt.addHist(url, link)
             return jsonify(link)
+        else:
+            t = yt.ifHist(url)
+            if t == False:
+                data = Data('https://www.youtube.com/watch?v=' + url,True)
+                if url != '':
+                    link = histogram(data)
+                    os.remove(data.vidID + ".mp4")
+                    os.remove(data.vidID + ".png")
+                    yt.addHist(url,link)
+                    return jsonify(link)
+                else:
+                    return jsonify("EMPTY URL")
+            else:
+                link = yt.getHist(url)
+                return jsonify(link)
     else:
         return jsonify("ERROR ONLY GET ACCEPTABLE")
 
