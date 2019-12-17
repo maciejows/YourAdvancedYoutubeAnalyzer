@@ -36,6 +36,12 @@ class ytDB:
             query = self.dbCursor.execute("SELECT * FROM " + str(tableName))
         return query.fetchall()
 
+    def getHist(self, vidID):
+        self.dbCursor.execute("SELECT histogram FROM videos WHERE videoId like '" + vidID + "'")
+        query = self.dbCursor.fetchone()
+        print("getHist: " + str(query[0]))
+        return query[0]
+
     def getVideoData(self, vidID):
         self.dbCursor.execute("SELECT * FROM videos WHERE videoId like '" + vidID + "'")
         return self.dbCursor.fetchone()
@@ -50,17 +56,26 @@ class ytDB:
             if self.ifChannel(vidQuery[1]):
                 chanQuery = self.getChannelData(vidQuery[1])
                 print(vidQuery + chanQuery)
-                query = {"videoId": vidQuery[0], "videoTitle": vidQuery[2],  "videoUrl": vidQuery[3],
+                query = {"videoId": vidQuery[0], "videoTitle": vidQuery[2], "videoUrl": vidQuery[3],
                          "thumbnailURL": vidQuery[4], "videoCategories": vidQuery[5], "tags": vidQuery[6],
                          "videoUploader": vidQuery[7], "commentsCount": vidQuery[8],
-                         "videoViewCount": vidQuery[9],"ageLimit": vidQuery[10], "videoAverageRating": vidQuery[11],
-                         "videoLikeCount": vidQuery[12], "videoDislikeCount": vidQuery[13], "videoDuration": vidQuery[14],
+                         "videoViewCount": vidQuery[9], "ageLimit": vidQuery[10], "videoAverageRating": vidQuery[11],
+                         "videoLikeCount": vidQuery[12], "videoDislikeCount": vidQuery[13],
+                         "videoDuration": vidQuery[14],
                          "channelId": chanQuery[0], "channelName": chanQuery[1],
-                         "channelUrl": chanQuery[2],  "subscribersNumber": chanQuery[3], "channelTotalVideoViews": chanQuery[4],
-                         "channelPublishedAt": chanQuery[5], "videosNumber": chanQuery[6]}
+                         "channelUrl": chanQuery[2], "subscribersNumber": chanQuery[3],
+                         "channelTotalVideoViews": chanQuery[4], "channelPublishedAt": chanQuery[5],
+                         "videosNumber": chanQuery[6], "videoHistogram": chanQuery[15]}
                 return query
             else:
                 print("No such data in the database.")
+
+    def addHist(self, vidID, hist):
+        if self.ifVideo(vidID):
+            sql = "UPDATE `videos` t SET t.`histogram` = %s WHERE t.`videoID` like '" + vidID + "'"
+            val = (hist)
+            self.dbCursor.execute(sql, val)
+            self.rdsdb.commit()
 
     def addData(self, dbData):
         # Checking if channel is in database. If it is, updating data
@@ -92,7 +107,8 @@ class ytDB:
                   "tags, uploader, comments, views, ageLimit, rating, likes, dislikes, duration) " \
                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             values = (dbData.vidID, dbData.chanID, dbData.vidTitle, dbData.vidWebUrl, dbData.vidThumbnail,
-                      str(dbData.vidCategories)[1:][:-1], str(dbData.vidTags)[1:][:-1], dbData.vidUploader, dbData.vidCommentCount,
+                      str(dbData.vidCategories)[1:][:-1], str(dbData.vidTags)[1:][:-1], dbData.vidUploader,
+                      dbData.vidCommentCount,
                       dbData.vidViewCount, dbData.vidAgeLimit, dbData.vidAverageRating, dbData.vidLikeCount,
                       dbData.vidDislikeCount, dbData.vidDuration)
             self.dbCursor.execute(sql, values)
@@ -108,6 +124,16 @@ class ytDB:
         else:
             return True
 
+    def ifHist(self, videoID):
+        self.dbCursor.execute("SELECT histogram FROM videos WHERE videoId like '" + videoID + "'")
+        query = self.dbCursor.fetchone()
+        print("ifHist: " + str(query[0]))
+        if str(query[0]) == "None" or str(query[0]) == "NULL":
+            print("No such histogram in the database.")
+            return False
+        else:
+            return True
+
     def ifChannel(self, chanID):
         self.dbCursor.execute("SELECT * FROM channels WHERE channelID like '" + chanID + "'")
         query = self.dbCursor.fetchone()
@@ -116,6 +142,9 @@ class ytDB:
             print("No such channel in the database.")
             return False
         return True
-    #TODO Check if hist is present in database
+    # TODO Check if hist is present in database
     # def GetHist(self):
 
+
+gitara = ytDB()
+gitara.ifHist("4AIUlrTmlfI")
