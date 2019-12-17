@@ -9,7 +9,7 @@
                 <a href="#"
                 *ngFor="let option of options" 
                 (click)="selectOption(option)"
-                class="nav-link nav-item"  [class.active]="option === selectedOption"> <!-- TODO: Add: border border-danger-->
+                class="nav-link nav-item"  [class.active]="option === selectedOption">
                 {{option}}
                 </a>
             </div>

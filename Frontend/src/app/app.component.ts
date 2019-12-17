@@ -8,11 +8,17 @@ import { Data } from './data';
 })
 export class AppComponent {
   data: Data;
+  histogramUrl: any;
   searched: boolean;
   
   getData(event: Data){
     this.data = event;
     console.log("Got data in app.component");
+  }
+
+  getHistogram(event: any){
+    this.histogramUrl = event;
+    console.log("Got histogram in app.component");
   }
 
   isSearching(event: boolean){

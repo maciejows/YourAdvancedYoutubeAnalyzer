@@ -17,7 +17,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- TODO: Add data-->
+                
                 <div class="card-body bg-dark text-light" >
                     <h5 class="card-title">{{selectedOption}} informations</h5>
                     <table *ngIf="selectedOption === 'Video'" class="table table-hover table-dark  text-justify">
@@ -47,9 +47,21 @@
                             <tr><td>Channel published at: {{data.channelPublishedAt}}</td></tr>
                         </tbody>
                     </table>
-                    <table *ngIf="selectedOption === 'Additional'" class="table table-hover table-dark  text-justify"> 
-                        Data content additional
-                    </table>
+                    <div *ngIf="selectedOption === 'Additional'" class="container text-center"> 
+                        <div *ngIf="!sanitizedUrl" class="d-flex mt-3">
+                            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div *ngIf="sanitizedUrl">
+                            <div class="row"> 
+                                <div class="col-12"> Histogram </div>
+                                <div class="col-10 offset-1">
+                                    <img [src]="sanitizedUrl" class="img-fluid" alt="Responsive image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

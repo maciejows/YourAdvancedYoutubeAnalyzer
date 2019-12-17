@@ -10,7 +10,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  // TODO http://localhost:4200/?# ???????
+  
   getTopVideosData(): Observable<any>{
     return this.http.get('http://127.0.0.1:5034/top');
   }

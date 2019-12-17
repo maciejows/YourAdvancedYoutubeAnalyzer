@@ -11,19 +11,27 @@ import { map } from 'rxjs/operators';
 export class SearchBarComponent{
 
   @Output() data = new EventEmitter<Data>();
-  @Output() histogram = new EventEmitter();
+  @Output() histogramUrl = new EventEmitter();
   @Output() searched = new EventEmitter<boolean>();
 
   constructor(private dataService: DataService) { }
 
-  getData(url): void {
+  getData(url: string): void {
     this.searched.emit(true);
     this.data.emit(null);
     
     this.dataService.getData(url)
     .subscribe( (data) => {
       console.log("Emiting data in search.component");
-      this.data.emit(data);
+     this.data.emit(data);
+    });
+  }
+
+  getHistogram(url: string): void{
+    this.dataService.getHistogram(url)
+    .subscribe( (data) => {
+      console.log(`Emiting histogram in search.component ${data}`);
+      this.histogramUrl.emit(data);
     });
   }
 
