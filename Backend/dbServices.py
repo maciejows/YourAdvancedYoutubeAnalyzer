@@ -72,9 +72,8 @@ class ytDB:
 
     def addHist(self, vidID, hist):
         if self.ifVideo(vidID):
-            sql = "UPDATE `videos` t SET t.`histogram` = %s WHERE t.`videoID` like '" + vidID + "'"
-            val = (hist)
-            self.dbCursor.execute(sql, val)
+            sql = "UPDATE `videos` t SET t.`histogram` = '"+hist+"' WHERE t.`videoID` like '" + vidID + "'"
+            self.dbCursor.execute(sql)
             self.rdsdb.commit()
 
     def addData(self, dbData):
@@ -148,3 +147,5 @@ class ytDB:
 
 gitara = ytDB()
 gitara.ifHist("4AIUlrTmlfI")
+gitara.addHist("4AIUlrTmlfI","histogram.urlarnbabawifbawoieub")
+gitara.getHist("4AIUlrTmlfI")
