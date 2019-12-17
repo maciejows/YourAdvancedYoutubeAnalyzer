@@ -1,9 +1,12 @@
 import os
+import time
+
 from flask import Flask, send_file, jsonify, request
 from flask_cors import CORS
-from Backend.mozaika import histogram
-from Backend.data import Data
-from Backend.dbServices import ytDB
+from YourAdvancedYoutubeAnalyzer.Backend.mozaika import histogram
+from YourAdvancedYoutubeAnalyzer.Backend.data import Data
+from YourAdvancedYoutubeAnalyzer.Backend.dbServices import ytDB
+from YourAdvancedYoutubeAnalyzer.Backend.comments import Com
 
 app = Flask(__name__)
 CORS(app)
@@ -11,16 +14,32 @@ CORS(app)
 @app.route('/hist',methods=["GET"])
 def output():
     if request.method == "GET":
-        #TODO Check if hist is present in database
-        url = request.args.get('url',type=str)
-        data = Data('https://www.youtube.com/watch?v=' + url,True)
-        if url != '':
-            histogram(data)
-            name = data.vidID + ".mp4"
-            os.remove(name)
-            return send_file("hist.png", mimetype='image/png')
+        yt = ytDB()
+        url = request.args.get('url', type=str)
+        v = yt.ifVideo(url)
+        if v == False:
+            data = Data('https://www.youtube.com/watch?v=' + url, True)
+            yt.addData(data)
+            link = histogram(data)
+            os.remove(data.vidID + ".mp4")
+            os.remove(data.vidID + ".png")
+            yt.addHist(url, link)
+            return jsonify(link)
         else:
-            return jsonify("EMPTY URL")
+            t = yt.ifHist(url)
+            if t == False:
+                data = Data('https://www.youtube.com/watch?v=' + url,True)
+                if url != '':
+                    link = histogram(data)
+                    os.remove(data.vidID + ".mp4")
+                    os.remove(data.vidID + ".png")
+                    yt.addHist(url,link)
+                    return jsonify(link)
+                else:
+                    return jsonify("EMPTY URL")
+            else:
+                link = yt.getHist(url)
+                return jsonify(link)
     else:
         return jsonify("ERROR ONLY GET ACCEPTABLE")
 
@@ -40,6 +59,16 @@ def json():
     else:
         return jsonify("ERROR ONLY GET ACCEPTABLE")
 
+@app.route('/com',methods=["GET"])
+def jsonc():
+    if request.method == "GET":
+        url = request.args.get('url', type=str)
+        start = time.time()
+        com = Com(url)
+        com.down()
+        end = time.time()
+        print(end - start)
+        return jsonify(len(com.komentarze))
 
 if __name__ == '__main__':
     app.run("127.0.0.1","5034")

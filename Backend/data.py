@@ -1,7 +1,11 @@
+import json
 import os
+import time
+from collections import Counter
+
 import requests
 import youtube_dl
-from youtube_api import  YouTubeDataAPI
+from youtube_api import YouTubeDataAPI
 
 ydl_opts = {
     'format': '160',
@@ -15,13 +19,11 @@ class Data:
         print(url)
         with youtube_dl.YoutubeDL(ydl_opts) as yt:
             jsonmovie = yt.extract_info(url, download=bool)
-        yt = YouTubeDataAPI(os.environ['APIKEY'])
         print(jsonmovie)
         self.vidTitle = jsonmovie["title"]
         self.vidThumbnail = jsonmovie["thumbnail"]
         self.vidID = jsonmovie["id"]
         self.vidWebUrl = jsonmovie["webpage_url"]
-        # TODO 1: add comment count jsonmovie
         self.vidCommentCount = "56465678"
         self.vidTags = jsonmovie["tags"]
         self.vidUploader = jsonmovie["uploader"]
@@ -40,14 +42,6 @@ class Data:
         self.chanName = self.jsonmovie2["items"][0]["snippet"]["title"]
         self.chanWebUrl = "https://www.youtube.com/channel/" + self.chanID
         self.chanViewCount = self.jsonmovie2["items"][0]["statistics"]["viewCount"]
-        # !!Commented chanCommentCount!!
-        # self.chanCommentCount = self.jsonmovie2["items"][0]["statistics"]["commentCount"] "ilosc_komentarzy_kanalu":self.chanCommentCount,
-        # TODO: Class comments
-        # start = time.time()
-        # self.komenty = yt.get_video_comments(self.vidID)
-        # end = time.time()
-        # print(end - start)
-        # print(len(self.komenty))
         self.chanSubscriberCount = self.jsonmovie2["items"][0]["statistics"]["subscriberCount"]
         self.chanVideoCount = self.jsonmovie2["items"][0]["statistics"]["videoCount"]
         self.chanPublishedAt = self.jsonmovie2["items"][0]["snippet"]["publishedAt"]
