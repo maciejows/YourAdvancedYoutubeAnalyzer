@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output} from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Data } from '../data';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -31,7 +30,7 @@ export class SearchBarComponent{
     this.dataService.getHistogram(url)
     .subscribe( (data) => {
       console.log(`Emiting histogram in search.component ${data}`);
-      this.histogramUrl.emit(data);
+      setTimeout( ()=> this.histogramUrl.emit(data), 4000);
     });
   }
 

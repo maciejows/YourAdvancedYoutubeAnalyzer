@@ -7,7 +7,7 @@ export class Data {
     channelTotalVideoViews: string;
     channelUrl: string;
     subscribersNumber: string;
-    videosNumber: string; // ?
+    videosNumber: string; 
     //Video
     tags: string[];
     thumbnailURL: string;
@@ -15,10 +15,10 @@ export class Data {
     videoCategories: string[];
     videoDislikeCount: number;
     videoDuration: number;
-    videoId: string; // Ignore
+    videoId: string; 
     videoLikeCount: number;
     videoTitle: string;
     videoUploader: string;
-    videoUrl: string; // Ignore
+    videoUrl: string; 
     videoViewCount: number;
 }
