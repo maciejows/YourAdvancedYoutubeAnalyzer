@@ -51,7 +51,7 @@ class objDB():
         result = connect.execute(s)
         connect.close()
         #print(result)
-        return result.fetchone()
+        #return result.fetchone()
 
     def getVideoData(self, vidID):
         s = self.videos.select().where(self.videos.c.videoID == vidID)
@@ -77,7 +77,7 @@ class objDB():
             vidQuery = self.getVideoData(vidID)
             if self.ifChannel(vidQuery[1]):
                 chanQuery = self.getChannelData(vidQuery[1])
-                print(vidQuery + chanQuery)
+#                print(vidQuery + chanQuery)
                 query = {"videoId": vidQuery[0], "videoTitle": vidQuery[2], "videoUrl": vidQuery[3],
                          "thumbnailURL": vidQuery[4], "videoCategories": vidQuery[5], "tags": vidQuery[6],
                          "videoUploader": vidQuery[7], "commentsCount": vidQuery[8],
@@ -87,7 +87,7 @@ class objDB():
                          "channelId": chanQuery[0], "channelName": chanQuery[1],
                          "channelUrl": chanQuery[2], "subscribersNumber": chanQuery[3],
                          "channelTotalVideoViews": chanQuery[4], "channelPublishedAt": chanQuery[5],
-                         "videosNumber": chanQuery[6], "videoHistogram": chanQuery[15]}
+                         "videosNumber": chanQuery[6]}
                 return query
             else:
                 print("No such data in the database.")
@@ -97,7 +97,7 @@ class objDB():
             updt = self.videos.update().where(self.videos.c.videoID == vidID).values(histogram=hist)
             connect = self.engine.connect()
             result = connect.execute(updt)
-            res = result.fetchone()
+            #res = result.fetchone()
             #print(res)
             connect.close()
 
@@ -115,7 +115,7 @@ class objDB():
         # Checking if video is in database. If it is, updating data
         connect = self.engine.connect()
         result = connect.execute(ins)
-        res = result.fetchone()
+        #res = result.fetchone()
         #print(res)
         connect.close()
         if self.ifVideo(dbData.vidID):
@@ -135,7 +135,7 @@ class objDB():
                                               dislikes=dbData.vidDislikeCount, duration=dbData.vidDuration)
         connect = self.engine.connect()
         result = connect.execute(ins)
-        res = result.fetchone()
+        #res = result.fetchone()
         #print(res)
         connect.close()
 
