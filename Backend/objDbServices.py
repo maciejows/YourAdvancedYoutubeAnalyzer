@@ -87,7 +87,7 @@ class objDB():
                          "channelId": chanQuery[0], "channelName": chanQuery[1],
                          "channelUrl": chanQuery[2], "subscribersNumber": chanQuery[3],
                          "channelTotalVideoViews": chanQuery[4], "channelPublishedAt": chanQuery[5],
-                         "videosNumber": chanQuery[6]}
+                         "videosNumber": chanQuery[6],"videoHistogram": vidQuery[15]}
                 return query
             else:
                 print("No such data in the database.")

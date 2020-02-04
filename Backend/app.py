@@ -1,7 +1,7 @@
 import os
 import time
 
-from flask import Flask, send_file, jsonify, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from Backend.mozaika import histogram
 from Backend.data import Data
