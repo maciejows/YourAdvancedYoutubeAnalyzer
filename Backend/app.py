@@ -113,10 +113,7 @@ def ojson():
         if url != '':
             yt.addData(data)
             heh = yt.getData(data.vidID)
-            he = str(heh).replace("\"","")
-            s = he.replace('{','')
-            h = s.split(",")
-            return jsonify(h)
+            return jsonify(heh)
         else:
             return jsonify("EMPTY URL")
     else:
