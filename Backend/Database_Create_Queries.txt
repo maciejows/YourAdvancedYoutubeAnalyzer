@@ -1,0 +1,32 @@
+create table channels
+(
+0    channelID       varchar(255) not null,
+1    channelName     text         null,
+2    channelUrl      text         null,
+3    subscriberCount bigint       null,
+4    viewsCount      bigint       null,
+5    publishedAt     date         null,
+6    videosCount     int          null,
+);
+create table videos
+(
+0    videoID              varchar(255) not null,
+1    channelID            varchar(255) null,
+2    videoTitle           text         null,
+3    videoUrl             text         null,
+4    thumbnailUrl         text         null,
+5    categories           text         null,
+6    tags                 text         null,
+7    uploader             text         null,
+8    comments             int          null,
+9    views                int          null,
+10   ageLimit             int          null,
+11   rating               double       null,
+12   likes                int          null,
+13   dislikes             int          null,
+14   duration             int          null,
+    constraint videoID
+        unique (videoID),
+    constraint videos_ibfk_1
+        foreign key (channelID) references channels (channelID)
+);

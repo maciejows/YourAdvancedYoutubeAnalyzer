@@ -1,0 +1,69 @@
+<div class="container mt-5">
+    <div *ngIf="searched">
+        <div *ngIf="!data" class="d-flex justify-content-center mt-5">
+            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div *ngIf="data">
+            <div class="card text-center bg-dark">
+                <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li *ngFor="let option of options"
+                            (click)="selectOption(option)"
+                            [class.active]="option === selectedOption"
+                            class="nav-item mr-1" >
+                            <button class="btn btn-outline-danger text-light" type="button">{{option}}</button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card-body bg-dark text-light" >
+                    <h5 class="card-title">{{selectedOption}} informations</h5>
+                    <table *ngIf="selectedOption === 'Video'" class="table table-hover table-dark  text-justify">
+                        <tbody>
+                            <tr><td>Title: {{data.videoTitle}}</td></tr>
+                            <tr><td>Uploader: {{data.videoUploader}}</td></tr>
+                            <tr><td>Views: {{data.videoViewCount}}</td></tr>
+                            <tr><td>Likes: {{data.videoLikeCount}}</td></tr>
+                            <tr><td>Dislikes: {{data.videoDislikeCount}}</td></tr>
+                            <tr><td>Rating: {{data.videoAverageRating}}</td></tr>
+                            <tr><td>Duration: {{data.videoDuration}}</td></tr>
+                            <tr><td>Video id: {{data.videoId}}</td></tr>
+                            <tr><td>Tags: {{data.tags}}</td></tr>
+                            <tr><td>Age limit: {{data.ageLimit}}</td></tr>
+                            <tr><td>Categories: {{data.videoCategories}}</td></tr>
+                            <tr><td>Thumbnail URL: {{data.thumbnailURL}}</td></tr>
+                        </tbody>
+                    </table>
+                    <table *ngIf="selectedOption === 'Channel'" class="table table-hover table-dark  text-justify"> 
+                        <tbody>
+                            <tr><td>Name: {{data.channelName}}</td></tr>
+                            <tr><td>Url: {{data.channelUrl}}</td></tr>
+                            <tr><td>Subscribers: {{data.subscribersNumber}}</td></tr>
+                            <tr><td>Channel total video views: {{data.channelTotalVideoViews}}</td></tr>
+                            <tr><td>Videos number: {{data.videosNumber}}</td></tr>
+                            <tr><td>Id: {{data.channelId}}</td></tr>
+                            <tr><td>Channel published at: {{data.channelPublishedAt}}</td></tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="selectedOption === 'Additional'" class="container text-center"> 
+                        <div *ngIf="!histogramUrl" class="d-flex justify-content-center mt-5">
+                            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div *ngIf="histogramUrl">
+                            <div class="row"> 
+                                <div class="col-12"> Histogram </div>
+                                <div class="col-10 offset-1">
+                                    <img [src]="sanitizedUrl" class="img-fluid" alt="Responsive image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

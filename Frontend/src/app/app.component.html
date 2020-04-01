@@ -1,0 +1,11 @@
+<app-top-nav-bar></app-top-nav-bar>
+<app-search-bar (data)="getData($event)" (histogramUrl)="getHistogram($event)"  (searched)="isSearching($event)"></app-search-bar>
+<app-video-display *ngIf="data?.videoUrl" [videoUrl]="data.videoUrl"></app-video-display>
+<app-data-display  [data]="data" [histogramUrl]="histogramUrl" [searched]="searched"></app-data-display>
+<app-about></app-about>
+
+<!-- Br's for Scroll testing purposes -->
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<app-bottom-nav-bar></app-bottom-nav-bar>
